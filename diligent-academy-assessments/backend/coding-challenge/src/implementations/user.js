@@ -1,21 +1,39 @@
+import { Library } from "../sealed/library";
+
 export class User {
-    constructor() {
+   
+     constructor() {
         this.books = [];
-    }
+        this.library = new Library();
+    };
 
     borrow(book, library) {
-        throw new Error('Not implemented');
-    }
+        this.books.push(book);
+
+        this.library = library;
+        this.library.removeBook(book);
+    };
 
     hasBook(book) {
-        throw new Error('Not implemented');
-    }
+        return this.books.includes(book);
+    };
 
     return(book, library) {
-        throw new Error('Not implemented');
-    }
+        if (this.books.includes(book)) {
+            this.books.removeBook(book);
+            
+            this.library = library;
+            this.library.addBook(book);
+
+            return true;
+        } else {
+            return false;
+        }
+    };
 
     getBookNames() {
-        throw new Error('Not implemented');
-    }
+        const borrowedBooks = [...this.books];
+
+        return borrowedBooks;
+    };
 }
